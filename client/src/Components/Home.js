@@ -1,9 +1,19 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const Home = () => {
   return (
-<div className='ram'>
-  <h1 className='sm:text-2xl text-red-600, md:text-6xl text-green-600, xl:text-9xl text-blue-800'>home</h1>
+<div className='home-container flex justify-around mt-20'>
+    <div className="home-content">
+        <h1 className='text-[#003f88] font-bold text-4xl mt-20 ml-20'>Feed the Hungry, <br /> Spread Joy.</h1>
+        <p className='text-gray-700 ml-20 font-semibold mb-10'>Empower restaurants to bring smiles by donating excess <br />food through our platform.</p>
+        <NavLink className='bg-green-600 text-white px-6 py-2 rounded-lg font-semibold ml-20 hover:bg-green-500' to={'/restro'} >Donate</NavLink>
+        {/* <i class="fa-brands fa-whatsapp text-green-600 text-4xl ml-6 mt-10"></i> */}
+    </div>
+
+    <div className="home-img h-[21rem] bg-green-600 w-[21rem] rounded-[53%] ml-32" >
+      <img src="./images/childwfood.jpg" alt="" className='rounded-[50%] h-[20rem] w-[21rem] mb-1 ml-1 mt-1' />
+    </div>
 </div>
 
 
