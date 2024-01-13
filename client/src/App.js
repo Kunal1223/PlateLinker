@@ -4,8 +4,8 @@ import Navbar from './Components/Navbar'
 import Footer from './Components/Footer'
 import Home from './Components/Home'
 import About from './Components/About'
-import Ngo from './Components/Ngo'
-import Restaurants from './Components/Restaurant'
+import Ngo from './Components/NGO/Ngo'
+import Restaurants from './Components/Restaurant/Restaurant'
 
 function App() {
   return (
