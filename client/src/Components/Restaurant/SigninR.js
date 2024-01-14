@@ -14,9 +14,9 @@ export default function Signin(props) {
         props.close();
     }
 
-    function openModal() {
-        setIsOpen(true)
-    }
+    // function openModal() {
+    //     setIsOpen(true)
+    // }
 
     return (
         <>
