@@ -76,7 +76,7 @@ export default function Signin(props) {
                                                         <div className="flex items-center justify-between">
                                                             <label for="password" className="block text-sm font-medium leading-6 text-gray-900">Password</label>
                                                             <div className="text-sm">
-                                                                <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                                                                <a href="/" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
                                                             </div>
                                                         </div>
                                                         <div className="mt-2">
@@ -93,11 +93,11 @@ export default function Signin(props) {
                                                     Not a member?
                                                     <span onClick={() => setSignUpOpen(true)} className="cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign up</span>
                                                 </p>
-                                                    {SignUpOpen?   <Signup showSignUp={SignUpOpen}   closeSignUp={()=>{
-                                                        closeModal()
-                                                        setSignUpOpen(false)
-                                                    
-                                                    } }/>  :<></> }
+                                                {SignUpOpen ? <Signup showSignUp={SignUpOpen} closeSignUp={() => {
+                                                    closeModal()
+                                                    setSignUpOpen(false)
+
+                                                }} /> : <></>}
                                             </div>
                                         </div>
 
