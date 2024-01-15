@@ -27,7 +27,7 @@ router.post(
   async (req, res) => {
 
     try {
-      let success=false;
+      // let success=false;
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ success:false,errors: errors.array() });
@@ -41,7 +41,7 @@ router.post(
       if (user) {
         return res.status(400).json({ success:false ,error: "Sorry user already exists" });
       }else{
-          try{
+          
             user = await NGO.create({
               name: req.body.name,
               email: req.body.email,
@@ -50,13 +50,9 @@ router.post(
               desc: req.body.desc,
               phone: req.body.phone,
               social_link: req.body.social_link,
-              imageUrl : req.body.url,
+              imageUrl : req.body.imageUrl,
             });     
-            res.json({ success: true  , message :"Resister Successfully"}); 
-          }catch (err) {
-            console.log(err);
-            res.json({ success: false , message :"Network error is there" });
-        }
+         
       }
       
       const data = {
@@ -67,11 +63,11 @@ router.post(
 
       const authtoken = jwt.sign(data, JWT_SECRET);
       // Send a success response with the created user
-      success=true;
-      res.status(201).json({ success,authtoken });
+      // success=true;
+      res.status(201).json({ success:true,authtoken });
     } catch (error) {
       console.error(error);
-      res.status(500).json({success, error: "Server error" });
+      res.status(500).json({success:false, error: "Server error" });
     }
   }
 );
