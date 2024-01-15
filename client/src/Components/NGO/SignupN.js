@@ -1,12 +1,15 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
+import SigninN from './SigninN';
 import axios from 'axios'
 
 
 export default function Signup(props) {
     let [isOpen, setIsOpen] = useState(true)
+    const [SigninNOpen, setSigninNOpen] = useState(false)
     const navigate = useNavigate();
+    
     const [Userinfo, setUserinfo] = useState({ name: "", email: "", password: "", desc: "", manager_name: "", phone: "", social_link: "", })
     const [loading, setLoading] = useState(false);
     const [url, setUrl] = useState("");
@@ -53,7 +56,6 @@ export default function Signup(props) {
 
     const handleonSubmit = async (e) => {
         e.preventDefault();
-
         const response = await fetch("http://localhost:5000/api/auth/ngo/createNGO", {
             method: "POST",
             headers: {
@@ -62,15 +64,18 @@ export default function Signup(props) {
             body: JSON.stringify({ name: Userinfo.name, email: Userinfo.email, password: Userinfo.password, manager_name: Userinfo.manager_name, desc: Userinfo.desc, phone: Userinfo.phone, social_link: Userinfo.social_link, url: url })
         });
 
-
         const json = await response.json();
 
         if (!json.success) {
+            console.log("Its a error");
             alert(json.message);
         } else {
+            console.log("Resister")
             alert(json.message);
-            setUserinfo({ name: "", email: "", password: "", phone: "" });
-            // navigate('/login', { replace: true });
+            setUserinfo({ name: "", email: "", password: "", phone: "" , });
+            closeModal();
+            setSigninNOpen(true);
+            // navigate('/ngo', { replace: true });
         }
     };
 
@@ -80,7 +85,8 @@ export default function Signup(props) {
 
 
     function closeModal() {
-        setIsOpen(false)
+        setIsOpen(false);
+        setSigninNOpen(true);
         props.closeSignUp();
     }
 
@@ -127,7 +133,7 @@ export default function Signup(props) {
                                             </div>
 
                                             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                                                <form className="space-y-6" action="#" method="POST">
+                                                <form className="space-y-6" action="#" method="POST" onSubmit={handleonSubmit}>
                                                     <div>
                                                         <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">NGO Name</label>
                                                         <div className="mt-2">
@@ -151,30 +157,30 @@ export default function Signup(props) {
                                                         </div>
 
                                                         <div className="mt-2">
-                                                            <input id="password" name="password" type="password" value={Userinfo.password} onChange={onchange} autoComplete="current-password" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="password" name="password" type="password" value={Userinfo.password} onChange={onchange} autoComplete="password" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                         <div>
                                                             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">NGO Manager Name</label>
                                                             <div className="mt-2">
-                                                                <input id="name7" name="manager_name" type="text" autoComplete="email" value={Userinfo.manager_name} onChange={onchange} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                                <input id="manager_name" name="manager_name" type="text" autoComplete="manager_name" value={Userinfo.manager_name} onChange={onchange} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                             </div>
                                                         </div>
                                                         <div>
                                                             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">NGO Phone Number</label>
                                                             <div className="mt-2">
-                                                                <input id="name3" name="phone" type="number" autoComplete="email" required value={Userinfo.phone} onChange={onchange} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                                <input id="phone" name="phone" type="number" autoComplete="phone" required value={Userinfo.phone} onChange={onchange} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                             </div>
                                                         </div>
                                                         <div>
                                                             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">NGO Description</label>
                                                             <div className="mt-2">
-                                                                <input id="name2" name="desc" type="text" autoComplete="email" value={Userinfo.desc} onChange={onchange} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                                <input id="desc" name="desc" type="text" autoComplete="desc" value={Userinfo.desc} onChange={onchange} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                             </div>
                                                         </div>
                                                         <div>
                                                             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">NGO Social Media Handle</label>
                                                             <div className="mt-2">
-                                                                <input id="name1" name="social_link" type="text" autoComplete="email" value={Userinfo.social_link} onChange={onchange} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                                <input id="social_link" name="social_link" type="text" autoComplete="email" value={Userinfo.social_link} onChange={onchange} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                             </div>
                                                         </div>
 
@@ -204,6 +210,7 @@ export default function Signup(props) {
                                                 <p className="mt-10 text-center text-sm text-gray-500">
                                                     Already a member?
                                                     <span onClick={closeModal} className="cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in</span>
+                                                    {SigninNOpen ? <SigninN show={SigninNOpen} close={() => setSigninNOpen(false)} /> : <></>}
                                                 </p>
                                             </div>
                                         </div>

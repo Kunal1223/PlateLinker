@@ -90,7 +90,7 @@ export default function Signin(props) {
                                                     <span onClick={() => setSignUpOpen(true)} className="cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign up</span>
                                                 </p>
                                                 {SignUpOpen ? <Signup showSignUp={SignUpOpen} closeSignUp={() => {
-                                                    closeModal()
+                                                    // closeModal()
                                                     setSignUpOpen(false)
 
                                                 }} /> : <></>}

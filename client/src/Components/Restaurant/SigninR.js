@@ -1,8 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react';
 import { NavLink } from 'react-router-dom'
-
-
 import Signup from './SignupR';
 
 export default function Signin(props) {
@@ -14,14 +12,13 @@ export default function Signin(props) {
         props.close();
     }
 
-    // function openModal() {
-    //     setIsOpen(true)
-    // }
+    function openSignUpModal() {
+        setSignUpOpen(true);
+        closeModal();
+    }
 
     return (
         <>
-
-
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
@@ -87,12 +84,15 @@ export default function Signin(props) {
 
                                                 <p className="mt-10 text-center text-sm text-gray-500">
                                                     Not a member?
-                                                    <span onClick={() => setSignUpOpen(true)} className="cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign up</span>
+                                                    <span onClick={() => {
+                                                        // closeModal();
+                                                        setSignUpOpen(true);
+                                                        }} 
+                                                        className="cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign up</span>
                                                 </p>
                                                 {SignUpOpen ? <Signup showSignUp={SignUpOpen} closeSignUp={() => {
-                                                    closeModal()
+                                                    // closeModal()
                                                     setSignUpOpen(false)
-
                                                 }} /> : <></>}
                                             </div>
                                         </div>
