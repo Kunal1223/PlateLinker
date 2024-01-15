@@ -7,8 +7,8 @@ const jwt = require("jsonwebtoken");
 const JWT_SECRET = "vinayakdeveloper";
 // const fetchuser = require("../middleware/fetchuser");
 
-router.post(
-  "/createNGO",
+router.post( 
+  "/createNGO", 
   [
     body("name", "Enter the name of at least 3 characters").isLength({
       min: 3,
@@ -30,32 +30,41 @@ router.post(
       let success=false;
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(400).json({ success,errors: errors.array() });
+        return res.status(400).json({ success:false,errors: errors.array() });
       }
-      //chcek whether the user with this email exists
 
-      let user = await NGO.findOne({ email: req.body.email });
-      if (user) {
-        return res.status(400).json({ success,error: "Sorry user already exists" });
-      }
       const salt = await bcrypt.genSalt(10);
       const secpass = await bcrypt.hash(req.body.password, salt);
 
-      // Validation passed, create the user
-      user = await NGO.create({
-        name: req.body.name,
-        email: req.body.email,
-        password: secpass,
-        manager_name: req.body.manager_name,
-        desc: req.body.desc,
-        social_link: req.body.social_link,
-      });
-
+      //chcek whether the user with this email exists
+      let user = await NGO.findOne({ email: req.body.email });
+      if (user) {
+        return res.status(400).json({ success:false ,error: "Sorry user already exists" });
+      }else{
+          try{
+            user = await NGO.create({
+              name: req.body.name,
+              email: req.body.email,
+              password: secpass,
+              manager_name: req.body.manager_name,
+              desc: req.body.desc,
+              phone: req.body.phone,
+              social_link: req.body.social_link,
+              imageUrl : req.body.url,
+            });     
+            res.json({ success: true  , message :"Resister Successfully"}); 
+          }catch (err) {
+            console.log(err);
+            res.json({ success: false , message :"Network error is there" });
+        }
+      }
+      
       const data = {
         user: {
           id: user.id,
         },
       };
+
       const authtoken = jwt.sign(data, JWT_SECRET);
       // Send a success response with the created user
       success=true;
@@ -73,7 +82,7 @@ router.post(
     body("email", "Enter the valid email").isEmail(),
     body("password", "Enter a correct pass").exists(),
   ],
-  async (req, res) => {
+  async (req, res) => { 
     let success=false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

@@ -1,5 +1,6 @@
 const mongoose=require('mongoose')
 const { Schema } = mongoose;
+
 const NGOSchema = new Schema({
 name:{
     type:String,
@@ -18,6 +19,10 @@ name:{
     type:String,
     required:true
  },
+ phone:{
+   type:Number,
+   required:true,
+ },
  social_link:{
     type:String,
     required:true
@@ -30,6 +35,11 @@ name:{
     type: Date,
     default: Date.now
 },
+imageUrl:{
+   type:String,
+   required:true,
+   default:""
+}
 });
 
-module.exports=mongoose.model('NGO',NGOSchema)
+module.exports=mongoose.model('NGO',NGOSchema);
