@@ -48,15 +48,14 @@ export default function Signup(props) {
                                         as="h3"
                                         className="text-lg font-medium leading-6 text-gray-900"
                                     >
-                                        Sign up
+                                        <NavLink to={'/'}><img src="/images/logo.png" alt='logo' className='w-48 mx-auto' /></NavLink>
+
                                     </Dialog.Title>
                                     <div className="mt-2">
                                         <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
                                             <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-                                                <div className="nav-container ml-11 text-blue-500 font-bold text-lg">
-                                                    <NavLink to={'/home'}>PlateLinker</NavLink>
-                                                </div>
-                                                <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign up Restaurant Account</h2>
+                                                
+                                                <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign up Restaurant Account</h2>
                                             </div>
 
                                             <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -107,7 +106,7 @@ export default function Signup(props) {
 
 
                                                         <label class="block mb-2 text-sm font-medium text-gray-900 " for="file_input">Upload Images</label>
-                                                     <input class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer   focus:outline-none placeholder-black" aria-describedby="file_input_help" id="file_input" type="file" />
+                                                        <input class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer   focus:outline-none placeholder-black" aria-describedby="file_input_help" id="file_input" type="file" />
                                                         <p class="mt-1 text-sm text-gray-600" id="file_input_help">SVG, PNG, JPG or GIF</p>
 
 
