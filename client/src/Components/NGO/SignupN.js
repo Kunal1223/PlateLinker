@@ -54,13 +54,14 @@ export default function Signup(props) {
     const handleonSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await fetch("http://localhost:5000/api/createNGO", {
+        const response = await fetch("http://localhost:5000/api/auth/ngo/createNGO", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ name: Userinfo.name, email: Userinfo.email, password: Userinfo.password, manager_name: Userinfo.manager_name,desc:Userinfo.desc, phone: Userinfo.phone, social_link :Userinfo.social_link, url: url })
+            body: JSON.stringify({ name: Userinfo.name, email: Userinfo.email, password: Userinfo.password, manager_name: Userinfo.manager_name, desc: Userinfo.desc, phone: Userinfo.phone, social_link: Userinfo.social_link, url: url })
         });
+
 
         const json = await response.json();
 
@@ -69,7 +70,7 @@ export default function Signup(props) {
         } else {
             alert(json.message);
             setUserinfo({ name: "", email: "", password: "", phone: "" });
-            navigate('/login', { replace: true });
+            // navigate('/login', { replace: true });
         }
     };
 
