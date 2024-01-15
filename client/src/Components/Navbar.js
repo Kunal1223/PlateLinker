@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <div className='h-20 bg-slate-100 w-full flex justify-between mx-auto items-center'>
       <div className="nav-container ml-11 text-blue-500 font-bold text-lg">
-        <NavLink to={'/home'}>PlateLinker</NavLink>
+        <NavLink to={'/'}>PlateLinker</NavLink>
       </div>
 
       <div className="heading-container">
@@ -21,7 +21,7 @@ const Navbar = () => {
         <button onClick={() => setSigninROpen(true)} className="mr-14 text-blue-500 font-bold text-lg hover:text-blue-600" >Restaurant</button>
         {SigninROpen ? <SigninR show={SigninROpen} close={() => setSigninROpen(false)} /> : <></>}
 
-        <NavLink to={'/about'} className="mr-16 text-blue-500 font-bold text-lg hover:text-blue-600">About</NavLink>
+        <NavLink to={'/about'} className="mr-32 text-blue-500 font-bold text-lg hover:text-blue-600">About</NavLink>
       </div>
     </div> 
   )

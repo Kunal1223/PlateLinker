@@ -11,7 +11,7 @@ const Home = () => {
         {/* <i class="fa-brands fa-whatsapp text-green-600 text-4xl ml-6 mt-10"></i> */}
     </div>
 
-    <div className="home-img h-[21rem] bg-green-600 w-[21rem] rounded-[53%] ml-32" >
+    <div className="home-img h-[21rem] bg-green-600 w-[21rem] rounded-[53%] " >
       <img src="./images/childwfood.jpg" alt="" className='rounded-[50%] h-[20rem] w-[21rem] mb-1 ml-1 mt-1' />
     </div>
 </div>

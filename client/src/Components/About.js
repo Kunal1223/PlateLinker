@@ -17,8 +17,8 @@ const About = () => {
 
         </div>
 
-        <div className="container-pic">
-          <div className="pic2 h-64 bg-green-500 w-64 rounded-[50%] ml-[60%]">
+        <div className="container-pic mt-20">
+          <div className="pic2 h-64 bg-green-500 w-64 rounded-[50%] ml-[40%]">
             <img src="../images//hungry.jpeg" alt="child" className='h-64 w-64 rounded-[50%] ml-2' />
           </div>
         </div>
