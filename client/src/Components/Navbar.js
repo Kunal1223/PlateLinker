@@ -10,7 +10,9 @@ const Navbar = () => {
   return (
     <div className='h-20 bg-slate-100 w-full flex justify-between mx-auto items-center'>
       <div className="nav-container ml-11 text-blue-500 font-bold text-lg">
-        <NavLink to={'/'}>PlateLinker</NavLink>
+        {/* <NavLink to={'/'}>PlateLinker</NavLink> */}
+        <NavLink to={'/'}><img src="/images/logo.png" alt='logo' className='w-48'  /></NavLink>
+
       </div>
 
       <div className="heading-container">

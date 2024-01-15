@@ -52,18 +52,14 @@ export default function Signin(props) {
                                         as="h3"
                                         className="text-lg text-center font-medium leading-6 text-gray-900"
                                     >
-                                        Login
+                                        <NavLink to={'/'}><img src="/images/logo.png" alt='logo' className='w-48 mx-auto' /></NavLink>
+
                                     </Dialog.Title>
                                     <div className="mt-2">
                                         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-                                            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                                                <div className="nav-container ml-11 text-blue-500 font-bold text-lg">
-                                                    <NavLink to={'/home'}>PlateLinker</NavLink>
-                                                </div>
-                                                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to NGO Account</h2>
-                                            </div>
 
-                                            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+
+                                            <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
                                                 <form className="space-y-6" action="#" method="POST">
                                                     <div>
                                                         <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
