@@ -18,6 +18,10 @@ name:{
     type:String,
     required:true
  },
+ phone:{
+   type:Number,
+   required:true,
+ },
  social_link:{
     type:String,
     required:true
@@ -30,6 +34,11 @@ name:{
     type: Date,
     default: Date.now
 },
+imageUrl:{
+   type:String,
+   required:true,
+   default:""
+}
 });
 
 module.exports=mongoose.model('Restaurant',RestaurantSchema)

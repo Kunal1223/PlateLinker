@@ -1,14 +1,15 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react';
-import { NavLink } from 'react-router-dom'
-
-
+import { NavLink , useNavigate } from 'react-router-dom'
 import Signup from './SignupN';
+
 
 export default function Signin(props) {
     let [isOpen, setIsOpen] = useState(true)
-    let [SignUpOpen, setSignUpOpen] = useState(false)
+    let [SignUpOpen, setSignUpOpen] = useState(false);
+    const [Userinfo, setUserinfo] = useState({ email: "", password: "" });
 
+    const navigate = useNavigate();
     function closeModal() {
         setIsOpen(false)
         props.close();
@@ -18,10 +19,36 @@ export default function Signin(props) {
         setIsOpen(true)
     }
 
+    const handleonSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch("http://localhost:5000/api/auth/ngo/loginNGO", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email: Userinfo.email, password: Userinfo.password })
+        });
+
+        const json = await response.json();
+
+        if (!json.success) {
+            alert(json.message);
+        }
+        else { 
+            localStorage.setItem('authToken', json.authToken);
+            alert(json.message);
+            closeModal();
+            navigate('/ngo');
+        }
+    };
+
+    const onchange = (e) => {
+        setUserinfo({ ...Userinfo, [e.target.name]: e.target.value })
+    }
+
+
     return (
         <>
-
-
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
@@ -60,11 +87,11 @@ export default function Signin(props) {
 
 
                                             <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-                                                <form className="space-y-6" action="#" method="POST">
+                                                <form className="space-y-6" action="#" method="POST" onSubmit={handleonSubmit}>
                                                     <div>
                                                         <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                                                         <div className="mt-2">
-                                                            <input id="email" name="email" type="email" autoComplete="email" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="email" name="email" type="email"  value={Userinfo.email} onChange={onchange} autoComplete="email" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
@@ -76,7 +103,7 @@ export default function Signin(props) {
                                                             </div>
                                                         </div>
                                                         <div className="mt-2">
-                                                            <input id="password" name="password" type="password" autoComplete="current-password" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="password" name="password" value={Userinfo.password} onChange={onchange} type="password" autoComplete="current-password" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 

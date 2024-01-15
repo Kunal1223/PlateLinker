@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import { NavLink } from 'react-router-dom'
 import SigninN from './NGO/SigninN';
 import SigninR from './Restaurant/SigninR';
-
+ 
 const Navbar = () => {
 
   const [SigninNOpen, setSigninNOpen] = useState(false)

@@ -1,23 +1,96 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { NavLink } from 'react-router-dom'
-
+import { NavLink, useNavigate } from 'react-router-dom'
+import SigninR from './SigninR';
+import axios from 'axios'
 
 
 export default function Signup(props) {
     let [isOpen, setIsOpen] = useState(true)
+    const [SigninROpen, setSigninROpen] = useState(false)
+    const navigate = useNavigate();
+
+    const [Userinfo, setUserinfo] = useState({ name: "", email: "", password: "", desc: "", manager_name: "", phone: "", social_link: "", });
+    const [loading, setLoading] = useState(false);
+    const [url, setUrl] = useState("");
+
+    const convertBase64 = (file) => {
+        // console.log("insite the function2");
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+
+            fileReader.onerror = (error) => {
+                console.log("Error in the filereader path");
+                reject(error);
+            };
+        });
+    };
+
+    function uploadSingleImage(base64) {
+        setLoading(true);
+        // console.log("insite the function");
+        axios.post("http://localhost:5000/uploadImage", { image: base64 })
+            .then((res) => {
+                setUrl(res.data);
+                alert("Image uploaded Succesfully");
+            })
+            .then(() => setLoading(false))
+            .catch(console.log);
+    }
+
+    const uploadImage = async (event) => {
+        const files = event.target.files;
+        // console.log("insite the function3");
+
+        if (files.length === 1) {
+            const base64 = await convertBase64(files[0]);
+            uploadSingleImage(base64);
+            return;
+        }
+    };
+
+    const handleonSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch("http://localhost:5000/api/auth/res/createRES", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ name: Userinfo.name, email: Userinfo.email, password: Userinfo.password, manager_name: Userinfo.manager_name, desc: Userinfo.desc, phone: Userinfo.phone, social_link: Userinfo.social_link, url: url })
+        });
+
+        const json = await response.json();
+
+        if (!json.success) {
+            console.log("Its a error");
+            alert(json.message);
+        } else {
+            console.log("Resister")
+            alert(json.message);
+            setUserinfo({ name: "", email: "", password: "", phone: "", });
+            closeModal();
+            setSigninROpen(true);
+            // navigate('/ngo', { replace: true });
+        }
+    };
+
+    const onchange = (e) => {
+        setUserinfo({ ...Userinfo, [e.target.name]: e.target.value })
+    };
 
     function closeModal() {
         setIsOpen(false)
+        setSigninROpen(true);
         props.closeSignUp();
     }
 
-
-
     return (
         <>
-
-
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
@@ -52,82 +125,99 @@ export default function Signup(props) {
 
                                     </Dialog.Title>
                                     <div className="mt-2">
-                                        <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-                                            <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-                                                
-                                                <h2 class="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign up Restaurant Account</h2>
+                                        <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+                                            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+
+                                                <h2 className="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign up Restaurant Account</h2>
                                             </div>
 
-                                            <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                                                <form class="space-y-6" action="#" method="POST">
+                                            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                                                <form className="space-y-6" action="#" method="POST" onSubmit={handleonSubmit}>
                                                     <div>
-                                                        <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Restaurant Name</label>
-                                                        <div class="mt-2">
-                                                            <input id="name" name="name" type="text" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                        <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Restaurant Name</label>
+                                                        <div className="mt-2">
+                                                            <input id="name" name="name" type="text" value={Userinfo.name} onChange={onchange} autoComplete="email" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
                                                     <div>
-                                                        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-                                                        <div class="mt-2">
-                                                            <input id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+                                                        <div className="mt-2">
+                                                            <input id="email" name="email" type="email" value={Userinfo.email} onChange={onchange} autoComplete="email" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
                                                     <div>
-                                                        <div class="flex items-center justify-between">
-                                                            <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-                                                            <div class="text-sm">
-                                                                <a href="/" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                                                        <div className="flex items-center justify-between">
+                                                            <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                                                            <div className="text-sm">
+                                                                <a href="/" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
                                                             </div>
                                                         </div>
 
-                                                        <div class="mt-2">
-                                                            <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                        <div className="mt-2">
+                                                            <input id="password" name="password" type="password"
+                                                                value={Userinfo.password} onChange={onchange} autoComplete="current-password" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                         <div>
-                                                            <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Restaurant Manager Name</label>
-                                                            <div class="mt-2">
-                                                                <input id="name" name="name" type="text" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Restaurant Description</label>
-                                                            <div class="mt-2">
-                                                                <input id="name" name="name" type="text" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <label htmlFor="restaurant" className="block text-sm font-medium leading-6 text-gray-900">Restaurant Manager Name</label>
+                                                            <div className="mt-2">
+                                                                <input id="manager_name" name="manager_name" type="text"
+                                                                    value={Userinfo.manager_name} 
+                                                                    onChange={onchange}autoComplete="email" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Restaurant Social Media Handle</label>
-                                                            <div class="mt-2">
-                                                                <input id="name" name="name" type="text" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Restaurant Phone Number</label>
+                                                            <div className="mt-2">
+                                                                <input id="phone" name="phone" type="number" autoComplete="phone" required value={Userinfo.phone} onChange={onchange} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <label htmlFor="desc" className="block text-sm font-medium leading-6 text-gray-900">Restaurant Description</label>
+                                                            <div className="mt-2">
+                                                                <input id="desc" name="desc" type="text" autoComplete="desc" value={Userinfo.desc} onChange={onchange} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <label htmlFor="social_link" className="block text-sm font-medium leading-6 text-gray-900">Restaurant Social Media Handle</label>
+                                                            <div className="mt-2">
+                                                                <input id="social_link" name="social_link" type="text"
+                                                                    value={Userinfo.social_link} onChange={onchange} autoComplete="email" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                             </div>
                                                         </div>
 
 
-                                                        <label class="block mb-2 text-sm font-medium text-gray-900 " for="file_input">Upload Images</label>
-                                                        <input class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer   focus:outline-none placeholder-black" aria-describedby="file_input_help" id="file_input" type="file" />
-                                                        <p class="mt-1 text-sm text-gray-600" id="file_input_help">SVG, PNG, JPG or GIF</p>
-
-
+                                                        <div className="image-section">
+                                                            <div className="image-content">
+                                                                <label className="block mb-2 text-sm font-medium text-gray-900 " htmlFor="file_input">Upload Images</label>
+                                                                <input onChange={uploadImage} className="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer   focus:outline-none placeholder-black" aria-describedby="file_input_help" id="file_input" type="file" />
+                                                            </div>
+                                                            <div>
+                                                                {loading ? (
+                                                                    <div className="flex items-center justify-center">
+                                                                        <img src='../images/assets.gif' alt='loading img' className='loading' />{" "}
+                                                                    </div>
+                                                                ) : ""}
+                                                            </div>
+                                                            <p className="mt-1 text-sm text-gray-600" id="file_input_help">SVG, PNG, JPG or GIF</p>
+                                                        </div>
                                                     </div>
 
 
                                                     <div>
-                                                         <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+                                                        <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
                                                     </div>
                                                 </form>
 
-                                                <p class="mt-10 text-center text-sm text-gray-500">
+                                                <p className="mt-10 text-center text-sm text-gray-500">
                                                     Already a member?
-                                                    <span onClick={closeModal} class="cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in</span>
+                                                    <span onClick={closeModal} className="cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in</span>
+                                                    {SigninROpen ? <SigninR show={SigninROpen} close={() => setSigninROpen(false)} /> : <></>}
                                                 </p>
                                             </div>
                                         </div>
-
                                     </div>
-
-
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>

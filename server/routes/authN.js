@@ -4,7 +4,7 @@ const NGO = require("../models/NGO");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = "vinayakdeveloper";
+
 // const fetchuser = require("../middleware/fetchuser");
 
 router.post(
@@ -59,7 +59,7 @@ router.post(
         },
       };
 
-      const authtoken = jwt.sign(data, JWT_SECRET);
+      const authtoken = jwt.sign(data, process.env.JWT_SECRET);
       res.status(201).json({ success: true, authtoken , message:"Resiter Successfully" });
     } catch (error) {
       console.error(error);
@@ -75,10 +75,10 @@ router.post(
     body("password", "Enter a correct pass").exists(),
   ],
   async (req, res) => {
-    let success = false;
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ success, errors: errors.array() });
+      return res.status(400).json({ success:false, errors: errors.array(), message:"Email or Password not Match" });
     }
     const { email, password } = req.body;
     try {
@@ -86,11 +86,11 @@ router.post(
       if (!user) {
         return res
           .status(400)
-          .json({ success, error: "Please try to login with correct credentials" });
+          .json({ success:false, message: "Email or Password not Match" });
       }
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
-        return res.status(400).json({ success, error: "Enter correct password" });
+        return res.status(400).json({ success:false, error: "Email or Password not Match" });
       }
 
       const data = {
@@ -98,13 +98,12 @@ router.post(
           id: user.id,
         },
       };
-      const authtoken = jwt.sign(data, JWT_SECRET);
-      // Send a success response with the created user
-      success = true;
-      res.status(201).json({ success, authtoken });
+
+      const authtoken = jwt.sign(data, process.env.JWT_SECRET);
+      res.status(201).json({ success:true, authtoken , message:"Login Successfully" });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ success, error: "Server error" });
+      res.status(500).json({ success:false, message: "Server error" });
     }
   }
 );

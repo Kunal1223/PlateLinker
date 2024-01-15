@@ -4,7 +4,6 @@ const RES = require("../models/Restaurant");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = "vinayakdeveloper";
 // const fetchuser = require("../middleware/fetchuser");
 
 router.post(
@@ -25,18 +24,16 @@ router.post(
 
   ],
   async (req, res) => {
-
     try {
-      let success=false;
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(400).json({ success,errors: errors.array() });
+        return res.status(400).json({ success:false,errors: errors.array() , message:"Please Enter the valid data"});
       }
       //chcek whether the user with this email exists
 
       let user = await RES.findOne({ email: req.body.email });
       if (user) {
-        return res.status(400).json({ success,error: "Sorry user already exists" });
+        return res.status(400).json({ success:false,message: "Sorry user already exists" });
       }
       const salt = await bcrypt.genSalt(10);
       const secpass = await bcrypt.hash(req.body.password, salt);
@@ -48,7 +45,9 @@ router.post(
         password: secpass,
         manager_name: req.body.manager_name,
         desc: req.body.desc,
+        phone: req.body.phone,
         social_link: req.body.social_link,
+        imageUrl: req.body.url,
       });
 
       const data = {
@@ -56,13 +55,12 @@ router.post(
           id: user.id,
         },
       };
-      const authtoken = jwt.sign(data, JWT_SECRET);
+      const authtoken = jwt.sign(data, process.env.JWT_SECRET);
       // Send a success response with the created user
-      success=true;
-      res.status(201).json({ success,authtoken });
+      res.status(201).json({ success:true,authtoken , message:"Resister Successfully" });
     } catch (error) {
       console.error(error);
-      res.status(500).json({success, error: "Server error" });
+      res.status(500).json({success:false, message: "Server error" });
     }
   }
 );
@@ -74,10 +72,9 @@ router.post(
     body("password", "Enter a correct pass").exists(),
   ],
   async (req, res) => {
-    let success=false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ success,errors: errors.array() });
+      return res.status(400).json({ success:false,errors: errors.array() , message:"Email or Password not match" });
     }
     const { email, password } = req.body;
     try {
@@ -85,11 +82,11 @@ router.post(
       if (!user) {
         return res
           .status(400)
-          .json({success, error: "Please try to login with correct credentials" });
+          .json({success:false, message: "Please try to login with correct credentials" });
       }
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
-        return res.status(400).json({ success,error: "Enter correct password" });
+        return res.status(400).json({ success:false,message: "Enter correct password" });
       }
 
       const data = {
@@ -97,13 +94,11 @@ router.post(
           id: user.id,
         },
       };
-      const authtoken = jwt.sign(data, JWT_SECRET);
-      // Send a success response with the created user
-      success=true;
-      res.status(201).json({success, authtoken });
+      const authtoken = jwt.sign(data, process.env.JWT_SECRET);
+      res.status(201).json({success:true, authtoken , message:"Login Successfully" });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ success,error: "Server error" });
+      res.status(500).json({ success:false , message: "Server error" });
     }
   }
 );
