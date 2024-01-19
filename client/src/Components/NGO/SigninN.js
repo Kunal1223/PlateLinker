@@ -79,7 +79,7 @@ export default function Signin(props) {
                                         as="h3"
                                         className="text-lg text-center font-medium leading-6 text-gray-900"
                                     >
-                                        <NavLink to={'/'}><img src="/images/logo.png" alt='logo' className='w-48 mx-auto' /></NavLink>
+                                        <NavLink to={'/'}><img src="/images/logo.png" alt='logo' className='w-48  mx-auto' /></NavLink>
 
                                     </Dialog.Title>
                                     <div className="mt-2">
