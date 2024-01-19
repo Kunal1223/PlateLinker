@@ -103,6 +103,23 @@ router.post(
   }
 );
 
+
+//fetch all restros
+
+router.get("/fetchallres", async (req, res) => {
+  try {
+
+    const restros = await RES.find();
+    
+    res.json(restros);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+
+
 // router.post("/getuser", fetchuser, async (req, res) => {
 //   try {
 //     userId = req.user.id;

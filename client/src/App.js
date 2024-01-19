@@ -6,21 +6,23 @@ import Home from './Components/Home'
 import About from './Components/About'
 import Ngo from './Components/NGO/Ngo'
 import Restaurants from './Components/Restaurant/Restaurant'
+import RESState from './Components/context/RES/RESState';
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/ngo' element={<Ngo />} />
-          <Route path='/restro' element={<Restaurants />} />
-          <Route path='/about' element={<About />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-
+      <RESState>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/ngo' element={<Ngo />} />
+            <Route path='/restro' element={<Restaurants />} />
+            <Route path='/about' element={<About />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </RESState>
     </>
   );
 }
