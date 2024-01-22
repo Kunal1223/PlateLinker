@@ -7,19 +7,6 @@ import { useNavigate } from 'react-router-dom'
 const Ngo = () => {
   let Navigate = useNavigate();
 
-  const res_details = {
-
-
-    name: "Couple Goals",
-    email: "couple@gmail.com",
-    manager_name: "Vinayak",
-    desc: "couple goals nfgngnvnvbnbvnbvnvb v bv vn bv vb bnbvbv bv bvbvnbvnv ",
-    phone: "12334",
-    social_link: "@couple",
-    imageUrl: "/images/res.jpg"
-
-
-  }
   const context = useContext(RESContext);
   const { RES, getRES } = context;
   console.log(RES)
@@ -37,7 +24,7 @@ const Ngo = () => {
       {Array.isArray(RES) && RES.length > 0 ? (
         RES.map((Res) => {
           return (
-           
+            
             <CardR res_detail={Res} />
            
 
@@ -45,7 +32,7 @@ const Ngo = () => {
           );
         })
       ) : (
-        <p>No notes available</p>
+        <p>No ngo available</p>
       )}
 
 
