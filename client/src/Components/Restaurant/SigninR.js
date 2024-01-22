@@ -37,13 +37,13 @@ export default function Signin(props) {
         }
         else {
             // console.log("inside this");
-            localStorage.setItem('authToken', json.authToken);
+            localStorage.setItem('restroAuthToken', json.authToken);
             alert(json.message);
             closeModal();
             navigate('/restro');
         } 
     };
-
+ 
     const onchange = (e) => {
         setUserinfo({ ...Userinfo, [e.target.name]: e.target.value })
     }

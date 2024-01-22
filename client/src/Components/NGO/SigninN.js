@@ -35,7 +35,7 @@ export default function Signin(props) {
             alert(json.message);
         }
         else { 
-            localStorage.setItem('authToken', json.authToken);
+            localStorage.setItem('ngoAuthToken', json.authToken);
             alert(json.message);
             closeModal();
             navigate('/ngo');

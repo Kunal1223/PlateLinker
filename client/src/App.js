@@ -8,6 +8,7 @@ import Ngo from './Components/NGO/Ngo'
 import RESState from './Components/context/RES/RESState';
 import NGOState from './Components/context/NGO/NGOState';
 import Restaurant from './Components/Restaurant/Restaurant';
+import LoginError from './Components/LoginError';
 
 
 function App() {
@@ -15,20 +16,28 @@ function App() {
     <>
 
       <RESState>
+        <NGOState>
+          <BrowserRouter>
+            <Navbar />
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/restro' element={<Restaurant />} />
+              <Route path='/ngo' element={<Ngo />} />
 
-      <NGOState>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/ngo' element={<Ngo />} />
-          <Route path='/restro' element={<Restaurant/>} />
-          <Route path='/about' element={<About />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+              {/* {(!localStorage.getItem('ngoAuthToken')) ?
+                <><Route path='*' element={<LoginError />} /></>
+                : <><Route path='/ngo' element={<Ngo />} /></>}
 
-    </NGOState >
+              {(!localStorage.getItem('restroAuthToken')) ?
+                <><Route path='*' element={<LoginError />} /></>
+                : <><Route path='/restro' element={<Restaurant />} /></>} */}
+
+              <Route path='/about' element={<About />} />
+            </Routes>
+            <Footer />
+          </BrowserRouter>
+
+        </NGOState >
       </RESState >
     </>
   );
