@@ -7,29 +7,15 @@ import { useNavigate } from 'react-router-dom'
 const Ngo = () => {
   let Navigate = useNavigate();
 
-  const res_details = {
 
-
-    name: "Couple Goals",
-    email: "couple@gmail.com",
-    manager_name: "Vinayak",
-    desc: "couple goals nfgngnvnvbnbvnbvnvb v bv vn bv vb bnbvbv bv bvbvnbvnv ",
-    phone: "12334",
-    social_link: "@couple",
-    imageUrl: "/images/res.jpg"
-
-
-  }
   const context = useContext(RESContext);
   const { RES, getRES } = context;
   console.log(RES)
 
   useEffect(() => {
-    if (localStorage.getItem('token'))
+  
       getRES();
-    else {
-      Navigate('/login')
-    }
+   
   }, []);
 
   return (
