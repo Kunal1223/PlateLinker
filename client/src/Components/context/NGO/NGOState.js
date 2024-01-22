@@ -1,15 +1,15 @@
-import RESContext from './RESContext'
+import NGOContext from './NGOContext'
 import { useState } from 'react'
 
-export default function RESState(props) {
+export default function NGOState(props) {
   const host = 'http://localhost:5000'
-  const RESInitial = []
+  const NGOInitial = []
 
-  const [RES, setRES] = useState(RESInitial)
+  const [NGO, setNGO] = useState(NGOInitial)
   //Add a note
 
-  const getRES=async()=>{
-    const response = await fetch(`${host}/api/auth/res/fetchallres`, {
+  const getNGO=async()=>{
+    const response = await fetch(`${host}/api/auth/ngo/fetchallngo`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -21,8 +21,8 @@ export default function RESState(props) {
      
     });
     const json = await response.json();
-    console.log(json)
-    setRES(json)
+   
+    setNGO(json)
   }
 //   const addNote = async (title, description, tag) => {
 //     const response = await fetch(`${host}/api/notes/addnote`, {
@@ -103,8 +103,8 @@ export default function RESState(props) {
 
 
   return (
-    <RESContext.Provider value={{ getRES ,RES}}>
+    <NGOContext.Provider value={{ getNGO ,NGO}}>
       {props.children}
-    </RESContext.Provider>
+    </NGOContext.Provider>
   )
 }

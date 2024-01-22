@@ -108,6 +108,20 @@ router.post(
   }
 );
 
+//fetch all ngos
+
+router.get("/fetchallngo", async (req, res) => {
+  try {
+
+    const ngos = await NGO.find();
+    
+    res.json(ngos);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 // router.post("/getuser", fetchuser, async (req, res) => {
 //   try {
 //     userId = req.user.id;

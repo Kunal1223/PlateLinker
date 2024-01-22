@@ -1,21 +1,18 @@
 import React, { useEffect, useContext } from 'react'
 import CardR from './CardR'
 import RESContext from '../context/RES/RESContext';
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 
 const Ngo = () => {
-  let Navigate = useNavigate();
-
+  // let Navigate = useNavigate();
 
   const context = useContext(RESContext);
   const { RES, getRES } = context;
   console.log(RES)
 
   useEffect(() => {
-  
       getRES();
-   
   }, []);
 
   return (
@@ -23,7 +20,7 @@ const Ngo = () => {
       {Array.isArray(RES) && RES.length > 0 ? (
         RES.map((Res) => {
           return (
-           
+            
             <CardR res_detail={Res} />
            
 
@@ -31,7 +28,7 @@ const Ngo = () => {
           );
         })
       ) : (
-        <p>No notes available</p>
+        <p>No ngo available</p>
       )}
 
 
