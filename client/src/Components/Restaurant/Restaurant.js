@@ -23,7 +23,7 @@ const Restaurant = () => {
 
   return (
     <>
-      {(!localStorage.getItem('restroAuthToken'))
+      {(!localStorage.getItem('restroAuthToken')) && (!localStorage.getItem('ngoAuthToken'))
         ?
         <div className='mt-16'>
           <Lottie animationData={LoginerrorAni} className='animation h-72' />

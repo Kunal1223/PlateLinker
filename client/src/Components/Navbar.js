@@ -19,8 +19,19 @@ const Navbar = () => {
     navigate('/');
   }
 
+  const restroOpen = (e) => {
+    e.preventDefault();
+    navigate('/ngo')
+  }
+
+  const ngoOpen = (e) => {
+    e.preventDefault();
+    navigate('/restro')
+  }
+
   const [SigninNOpen, setSigninNOpen] = useState(false)
   const [SigninROpen, setSigninROpen] = useState(false)
+
   return (
     <div className='h-20 bg-slate-100 w-full flex justify-between mx-auto items-center'>
       <div className="nav-container ml-11 text-blue-500 font-bold text-lg">
@@ -34,11 +45,19 @@ const Navbar = () => {
 
         {(!localStorage.getItem('ngoAuthToken')) ?
           <>
-            <button button onClick={() => setSigninNOpen(true)} className="mr-14 text-blue-500 font-bold text-lg hover:text-blue-600">NGO</button>
-            {SigninNOpen ? <SigninN show={SigninNOpen} close={() => setSigninNOpen(false)} /> : <></>}
+            {(!localStorage.getItem('restroAuthToken')) ?
+              <>
+                <button button onClick={() => setSigninNOpen(true)} className="mr-14 text-blue-500 font-bold text-lg hover:text-blue-600">NGO</button>
+                {SigninNOpen ? <SigninN show={SigninNOpen} close={() => setSigninNOpen(false)} /> : <></>}
+              </>
+              :
+              <>
+              </>
+              }
           </>
           :
           <>
+            <button onClick={restroOpen} className="mr-14 text-blue-500 font-bold text-lg hover:text-blue-600" >Restaurant</button>
             <button button onClick={removeToken} className="mr-14 text-red-500 font-bold text-lg hover:text-red-600">Log Out</button>
           </>
         }
@@ -46,11 +65,20 @@ const Navbar = () => {
 
         {(!localStorage.getItem('restroAuthToken')) ?
           <>
-            <button onClick={() => setSigninROpen(true)} className="mr-14 text-blue-500 font-bold text-lg hover:text-blue-600" >Restaurant</button>
-            {SigninROpen ? <SigninR show={SigninROpen} close={() => setSigninROpen(false)} /> : <></>}</>
+            {(!localStorage.getItem('ngoAuthToken')) ?
+              <>
+                <button onClick={() => setSigninROpen(true)} className="mr-14 text-blue-500 font-bold text-lg hover:text-blue-600" >Restaurant</button>
+                {SigninROpen ? <SigninR show={SigninROpen} close={() => setSigninROpen(false)} /> : <></>}
+              </>
+              :
+              <>
+              </>
+            }
+          </>
           :
           <>
             <button onClick={removerToken} className="mr-14 text-red-500 font-bold text-lg hover:text-red-600" >Log Out</button>
+            <button onClick={ngoOpen} className="mr-14 text-blue-500 font-bold text-lg hover:text-blue-600" >NGO</button>
           </>
         }
 
