@@ -9,6 +9,7 @@ import RESState from './Components/context/RES/RESState';
 import NGOState from './Components/context/NGO/NGOState';
 import Restaurant from './Components/Restaurant/Restaurant';
 import LoginError from './Components/Error404';
+import Packets from './Components/Restaurant/Packets';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
               <Route path='/restro' element={<Restaurant />} />
               <Route path='/ngo' element={<Ngo />} />
               <Route path='*' element={<LoginError/>} />
+              <Route path='/packets' element={<Packets/>} />
               <Route path='/about' element={<About />} />
             </Routes>
             <Footer />

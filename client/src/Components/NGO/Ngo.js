@@ -17,9 +17,9 @@ const Ngo = () => {
     getRES();
   }, []);
 
-  const returback = (e) =>{
-      e.preventDefault();
-      Navigate('/');
+  const returback = (e) => {
+    e.preventDefault();
+    Navigate('/');
   }
 
   return (
@@ -36,7 +36,7 @@ const Ngo = () => {
         </div>
         :
         <>
-          <div className='mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
+          <div className='mt-6 grid grid-cols-1 gap-x-2 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
             {Array.isArray(RES) && RES.length > 0 ? (
               RES.map((Res) => {
                 return (

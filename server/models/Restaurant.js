@@ -38,7 +38,12 @@ imageUrl:{
    type:String,
    required:true,
    default:""
+},
+packets:{
+   type: Number,
+   default: 0
 }
+
 });
 
 module.exports=mongoose.model('Restaurant',RestaurantSchema)
