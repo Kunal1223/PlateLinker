@@ -5,17 +5,20 @@ import { useNavigate } from 'react-router-dom';
 
 const Packets = () => {
 
-    const [Userinfo, setUserinfo] = useState({ veg: "", Nonveg: "" });
+    const [Userinfo, setUserinfo] = useState({ Veg: "", Nonveg: "" });
+
+    const email = localStorage.getItem('email');
+    // console.log(email);
 
     const Navigate = useNavigate();
     const handleonSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/api/auth/res/loginRES", {
+        const response = await fetch("http://localhost:5000/api/auth/res/packets", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ veg: Userinfo.veg, Nonveg: Userinfo.Nonveg })
+            body: JSON.stringify({ Veg: Userinfo.Veg, Nonveg: Userinfo.Nonveg , email:email})
         });
 
         const json = await response.json();
@@ -42,7 +45,7 @@ const Packets = () => {
 
                 <div className="form mt-10">
                     <label className='text-sm font-medium text-center text-gray-500'>Enter the No of Veg Packets <i class="fa-solid fa-circle text-green-500 mr-4"></i></label><br />
-                    <input type='number' placeholder='0' className='px-2 my-2 py-1 border-green-500 rounded-lg border' name='veg' value={Userinfo.veg} 
+                    <input type='number' placeholder='0' className='px-2 my-2 py-1 border-green-500 rounded-lg border' name='Veg' value={Userinfo.Veg} 
                     onChange={onchange}  /> <br />
                 </div>
 

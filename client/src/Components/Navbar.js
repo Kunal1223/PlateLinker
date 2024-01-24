@@ -16,6 +16,7 @@ const Navbar = () => {
   const removerToken = (e) => {
     e.preventDefault();
     localStorage.removeItem('restroAuthToken');
+    localStorage.removeItem('email');
     navigate('/');
   }
 

@@ -38,6 +38,7 @@ export default function Signin(props) {
         else {
             // console.log("inside this");
             localStorage.setItem('restroAuthToken', json.authToken);
+            localStorage.setItem('email' , Userinfo.email);
             alert(json.message);
             closeModal();
             navigate('/restro');

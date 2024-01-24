@@ -103,17 +103,45 @@ router.post(
   }
 );
 
-router.post(async (req , res) =>{
+//
 
+router.post("/packets", async (req, res) => {
+  const { email, Veg, Nonveg } = req.body;
+
+  try {
+    let user = await RES.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "Please try to login with correct credentials",
+      });
+    }
+
+    // Update only Veg and Nonveg fields
+    user.Veg = Veg;
+    user.Nonveg = Nonveg;
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Packets updated successfully",
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: "Network Error", success: false });
+  }
 });
+
+
+
 
 //fetch all restros
 
 router.get("/fetchallres", async (req, res) => {
   try {
-
     const restros = await RES.find();
-    
     res.json(restros);
   } catch (error) {
     console.error(error.message);
