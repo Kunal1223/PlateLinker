@@ -13,15 +13,10 @@ export default function RESState(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-       
-
-
       },
-
-     
     });
     const json = await response.json();
-    console.log(json)
+    // console.log(json)
     setRES(json)
   }
 //   const addNote = async (title, description, tag) => {

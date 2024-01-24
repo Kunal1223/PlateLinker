@@ -70,7 +70,7 @@ export default function Signup(props) {
             console.log("Its a error");
             alert(json.message);
         } else {
-            console.log("Resister Successfully");
+            // console.log("Resister Successfully");
             alert(json.message);
             setUserinfo({ name: "", email: "", password: "", phone: "" , });
             closeModal();

@@ -30,7 +30,6 @@ function App() {
             </Routes>
             <Footer />
           </BrowserRouter>
-
         </NGOState >
       </RESState >
     </>

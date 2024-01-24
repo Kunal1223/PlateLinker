@@ -25,7 +25,7 @@ export default function Signup(props) {
             };
 
             fileReader.onerror = (error) => {
-                console.log("Error in the filereader path");
+                // console.log("Error in the filereader path");
                 reject(error);
             };
         });
@@ -67,10 +67,10 @@ export default function Signup(props) {
         const json = await response.json();
 
         if (!json.success) {
-            console.log("Its a error");
+            // console.log("Its a error");
             alert(json.message);
         } else {
-            console.log("Resister")
+            // console.log("Resister")
             alert(json.message);
             setUserinfo({ name: "", email: "", password: "", phone: "", });
             closeModal();

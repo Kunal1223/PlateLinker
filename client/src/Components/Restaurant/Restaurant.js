@@ -10,7 +10,7 @@ const Restaurant = () => {
 
   const context = useContext(NGOContext);
   const { NGO, getNGO } = context;
-  console.log(NGO)
+  // console.log(NGO)
 
   useEffect(() => {
     getNGO();

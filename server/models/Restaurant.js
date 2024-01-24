@@ -39,9 +39,13 @@ imageUrl:{
    required:true,
    default:""
 },
-packets:{
+Veg:{
    type: Number,
    default: 0
+},
+Nonveg:{
+   type:Number,
+   default:0
 }
 
 });

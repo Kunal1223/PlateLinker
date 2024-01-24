@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 const Home = () => {
-  return (
+  return ( 
 <div className='home-container flex justify-around mt-20'>
     <div className="home-content">
         <h1 className='text-[#003f88] font-bold text-4xl mt-20 ml-20'>Feed the Hungry, <br /> Spread Joy.</h1>

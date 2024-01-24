@@ -11,7 +11,7 @@ const Ngo = () => {
   const Navigate = useNavigate();
   const context = useContext(RESContext);
   const { RES, getRES } = context;
-  console.log(RES)
+  // console.log(RES)
 
   useEffect(() => {
     getRES();
