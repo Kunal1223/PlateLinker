@@ -37,8 +37,8 @@ export default function CardR(props) {
             </div>
           </div>
 
-          <div className="packets">
-            <button className="bg-[#dfe3e4] px-2 py-1 rounded-md text-gray-800 font-semibold">Donate Packets  
+          <div className="packets my-2">
+            <button className="bg-[#f3f1f1] px-2 py-1 rounded-md text-gray-800 font-semibold">Donate Packets  
             : <span className="ml-4">5 </span><i class="fa-solid fa-circle text-red-500 mr-4 "></i>  4  <i class="fa-solid fa-circle text-green-500 mr-4"></i></button>
           </div>
 
