@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 export default function CardR(props) {
-  let { name, email, manager_name, desc, phone, social_link, imageUrl } = props.res_detail;
+  let { name, manager_name, desc, social_link, Veg , Nonveg , imageUrl } = props.res_detail;
 
   return (
     <div className="">
@@ -39,7 +39,7 @@ export default function CardR(props) {
 
           <div className="packets my-2">
             <button className="bg-[#f3f1f1] px-2 py-1 rounded-md text-gray-800 font-semibold">Donate Packets  
-            : <span className="ml-4">5 </span><i class="fa-solid fa-circle text-red-500 mr-4 "></i>  4  <i class="fa-solid fa-circle text-green-500 mr-4"></i></button>
+            : <span className="ml-4">{Nonveg} </span><i class="fa-solid fa-circle text-red-500 mr-4 "></i>{Veg} <i class="fa-solid fa-circle text-green-500 mr-4"></i></button>
           </div>
 
         </div>

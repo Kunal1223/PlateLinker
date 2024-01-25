@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 export default function CardN(props) {
-  let { name, email, manager_name, desc, phone, social_link, imageUrl } = props.ngo_detail;
+  let { name, manager_name, desc, social_link, imageUrl } = props.ngo_detail;
 
   return (
     <div className="">
