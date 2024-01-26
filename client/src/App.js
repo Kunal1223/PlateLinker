@@ -10,6 +10,7 @@ import NGOState from './Components/context/NGO/NGOState';
 import Restaurant from './Components/Restaurant/Restaurant';
 import LoginError from './Components/Error404';
 import Packets from './Components/Restaurant/Packets';
+import ParticularCard from './Components/Restaurant/ParticularCard';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
               <Route path='*' element={<LoginError/>} />
               <Route path='/packets' element={<Packets/>} />
               <Route path='/about' element={<About />} />
+              <Route path='/particular' element={<ParticularCard />} />
             </Routes>
             <Footer />
           </BrowserRouter>

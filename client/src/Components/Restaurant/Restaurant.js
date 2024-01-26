@@ -15,13 +15,13 @@ const Restaurant = () => {
   useEffect(() => {
     getNGO();
   }, [NGO, getNGO]);
- 
+
   const returback = (e) => {
     e.preventDefault();
     Navigate('/');
   }
 
-  const movePacket = (e) =>{
+  const movePacket = (e) => {
     e.preventDefault();
     Navigate('/packets');
   }
@@ -48,10 +48,7 @@ const Restaurant = () => {
               Array.isArray(NGO) && NGO.length > 0 ? (
                 NGO.map((ngo) => {
                   return (
-
-                    <CardN ngo_detail={ngo} />
-
-
+                      <CardN ngo_detail={ngo} />
                   );
                 })
               ) : (
