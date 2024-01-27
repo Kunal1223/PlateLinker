@@ -13,7 +13,7 @@ export default function CardN(props) {
   
 
   return (
-    <div className="" onClick={moveToCard}>
+    <div className="" onClick={moveToCard} >
       <div className=" mx-5 my-5  mt-11 w-72 transform overflow-hidden rounded-lg   shadow-lg duration-300 hover:scale-105 hover:shadow-lg">
         <img className="h-48 w-full object-cover object-center " src={imageUrl} alt="event1" />
         <div className="p-4">
