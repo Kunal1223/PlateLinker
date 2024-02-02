@@ -10,8 +10,9 @@ const connectToMongo=require('./DB')
 app.use(cors())
 app.use(express.json({ limit: "25mb" }));
 
-app.use('/api/auth/ngo',require('./routes/authN'))
-app.use('/api/auth/res',require('./routes/authR'))
+app.use('/api/auth/ngo',require('./routes/authN'));
+app.use('/api/auth/res',require('./routes/authR'));
+app.use('/api/auth/res',require('./routes/Mailer'));
 
 
 connectToMongo();
@@ -21,7 +22,7 @@ const port = process.env.PORT
 app.post("/uploadImage", (req, res) => {
   uploadImage(req.body.image)
     .then((url) => res.send(url)) 
-    .catch((err) => res.status(500).send(err));
+    .catch((err) => res.status(500).send(err)); 
 });
 
 // Error handling middleware
