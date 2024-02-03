@@ -13,16 +13,16 @@ export default function Signin(props) {
         props.close();
     }
 
-    function openSignUpModal() {
-        setSignUpOpen(true);
-        closeModal();
-    }
+    // function openSignUpModal() {
+    //     setSignUpOpen(true);
+    //     closeModal();
+    // }
 
     const navigate = useNavigate();
 
     const handleonSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/api/auth/res/loginRES", {
+        const response = await fetch("http://localhost:5000/api/auth/user/loginUser", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -35,13 +35,13 @@ export default function Signin(props) {
         if (!json.success) {
             alert(json.message);
         }
-        else {
+        else { 
             // console.log("inside this");
-            localStorage.setItem('restroAuthToken', json.authToken);
+            localStorage.setItem('userAuthToken', json.authToken);
             localStorage.setItem('email' , Userinfo.email);
             alert(json.message);
             closeModal();
-            navigate('/restro');
+            navigate('/ngo');
         }
     };
 
@@ -84,7 +84,7 @@ export default function Signin(props) {
                                     >
                                         <NavLink to={'/'}><img src="/images/logo.png" alt='logo' className='w-48 mx-auto' /></NavLink>
 
-                                        <h1 className='text-xl mt-8 font-bold'>Sing in With User Account </h1>
+                                        <h1 className='text-xl mt-8 font-bold'>Sign in With User Account </h1>
 
                                     </Dialog.Title>
                                     <div className="mt-2">

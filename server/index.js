@@ -12,6 +12,7 @@ app.use(express.json({ limit: "25mb" }));
 
 app.use('/api/auth/ngo',require('./routes/authN'));
 app.use('/api/auth/res',require('./routes/authR'));
+app.use('/api/auth/user',require('./routes/authU'));
 app.use('/api/auth/res',require('./routes/Mailer'));
 
 

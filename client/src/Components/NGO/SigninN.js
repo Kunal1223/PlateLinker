@@ -81,7 +81,7 @@ export default function Signin(props) {
                                         className="text-lg text-center font-medium leading-6 text-gray-900"
                                     >
                                         <NavLink to={'/'}><img src="/images/logo.png" alt='logo' className='w-48  mx-auto mt-2' /></NavLink>
-                                        <h1 className='text-xl mt-8 font-bold'>Sing in With NGO Account </h1>
+                                        <h1 className='text-xl mt-8 font-bold'>Sign in With NGO Account </h1>
 
                                     </Dialog.Title>
                                     <div className="mt-2">

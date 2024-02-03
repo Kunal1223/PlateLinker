@@ -13,7 +13,7 @@ export default function Signup(props) {
 
     const handleonSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/api/auth/res/createRES", {
+        const response = await fetch("http://localhost:5000/api/auth/user/createUser", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -24,7 +24,6 @@ export default function Signup(props) {
         const json = await response.json();
 
         if (!json.success) {
-            // console.log("Its a error");
             alert(json.message);
         } else {
             // console.log("Resister")

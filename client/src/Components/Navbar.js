@@ -21,6 +21,13 @@ const Navbar = () => {
     navigate('/');
   }
 
+  const removeUToken = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('userAuthToken');
+    localStorage.removeItem('email');
+    navigate('/');
+  }
+
   const restroOpen = (e) => {
     e.preventDefault();
     navigate('/ngo')
@@ -33,7 +40,7 @@ const Navbar = () => {
 
   const [SigninNOpen, setSigninNOpen] = useState(false)
   const [SigninROpen, setSigninROpen] = useState(false)
-  const [SigninUOpen , setSiginUOpen] = useState(false);
+  const [SigninUOpen, setSiginUOpen] = useState(false);
 
   return (
     <div className='h-20 bg-slate-100 w-full flex justify-between mx-auto items-center'>
@@ -64,9 +71,9 @@ const Navbar = () => {
             <button button onClick={removeToken} className="mr-14 text-red-500 font-bold text-lg hover:text-red-600">Log Out</button>
           </>
         }
- 
 
-        {(!localStorage.getItem('restroAuthToken')) ?
+
+        {(!localStorage.getItem('restroAuthToken'))  ?
           <>
             {(!localStorage.getItem('ngoAuthToken')) ?
               <>
@@ -87,11 +94,17 @@ const Navbar = () => {
 
         <NavLink to={'/about'} className="mr-10 text-blue-500 font-bold text-lg hover:text-blue-600">About</NavLink>
 
-        <>
-          <button onClick={() => setSiginUOpen(true)} className="mr-14 text-blue-500 font-bold text-lg hover:text-blue-600" >User Login</button>
-          {SigninUOpen ? <SigninU show={SigninUOpen} close={() => setSiginUOpen(false)} /> : <></>}
-        </>
-
+        {(!localStorage.getItem('userAuthToken'))
+          ?
+          <>
+            <button onClick={() => setSiginUOpen(true)} className="mr-14 text-blue-500 font-bold text-lg hover:text-blue-600" >User Login</button>
+            {SigninUOpen ? <SigninU show={SigninUOpen} close={() => setSiginUOpen(false)} /> : <></>}
+          </>
+          :
+          <>
+            <button onClick={removeUToken} className="mr-14 text-red-500 font-bold text-lg hover:text-red-600" >Log Out</button>
+          </>
+        }
       </div>
     </div >
   )
