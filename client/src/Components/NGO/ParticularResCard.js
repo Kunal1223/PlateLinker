@@ -6,6 +6,7 @@ import PaymentQR from './PaymentQR';
 
 export default function ParticularResCard() {
     const [openPaymentModal, setopenPaymentModal] = useState(false)
+   
     const location = useLocation();
     const resDetail = location.state ? location.state.resDetail : null;
 
@@ -17,6 +18,7 @@ export default function ParticularResCard() {
     const onchange = (e) => {
         setUserinfo({ ...Userinfo, [e.target.name]: e.target.value })
     }
+   
     
    
   return (
