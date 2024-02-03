@@ -46,9 +46,8 @@ router.post('/paymentmail', async (req, res) => {
     const Veg = req.body.Veg;
     const Nonveg = req.body.Nonveg;
     const Reason = req.body.Reason;
-    const nemail = req.body.nemail;
     const remail = req.body.remail;
-    const manager = req.body.manager;
+    const uemail = req.body.uemail;
     const name = req.body.name;
 
     const currentTime = new Date();
@@ -63,10 +62,12 @@ router.post('/paymentmail', async (req, res) => {
 
     const mailOptions = {
         from: "donfunky595@gmail.com",
-        to: nemail,
+        to: remail,
+        cc: "vinayakshukla0786@gmail.com",
         subject: "Packet Add for Donation",
-        text: `Dear ${name},\nRestaurent ${remail} Added ${Veg} Veg Packets and NonVeg ${Nonveg} Packets For donation at ${currentTime} due to ${Reason}. Please connect with the Restaurent and collect the food items for donation.\n\n\nThank You ,\nTeam PlateLinker`
+        text: `Dear ${name},\n User ${uemail} Added ${Veg} Veg Packets and  ${Nonveg} NonVeg Packets For donation at ${currentTime} due to ${Reason}. Please connect with the Restaurent and collect the food items for donation.\n\n\nThank You ,\nTeam PlateLinker`
     };
+    
     
 
     transporter.sendMail(mailOptions, function (error, info) {

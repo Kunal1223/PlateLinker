@@ -1,9 +1,11 @@
 import React, { useState, Fragment } from 'react'
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink,  useLocation, useNavigate } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 
 
 export default function ParticularResCard() {
+
+    const navigate = useNavigate();
 
     const [openPaymentModal, setopenPaymentModal] = useState(false)
 
@@ -11,7 +13,7 @@ export default function ParticularResCard() {
     const resDetail = location.state ? location.state.resDetail : null;
 
     const { name, email, imageUrl, date } = resDetail || {};
-    console.log(resDetail)
+    // console.log(resDetail)
 
     const [Userinfo, setUserinfo] = useState({ Veg: "", Nonveg: "", Messege: "" });
 
@@ -23,8 +25,28 @@ export default function ParticularResCard() {
         e.preventDefault();
     }
 
-    const handleOnSubmit1 = (e) =>{
+    const uemail = localStorage.getItem('email');
+    // console.log(uemail);
+    // console.log(email);
+
+    const handleonSubmit1 = async (e) => {
         e.preventDefault();
+        fetch(`http://localhost:5000/api/auth/res/paymentmail`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ Veg: Userinfo.Veg, Nonveg: Userinfo.Nonveg, Reason: Userinfo.Messege, remail: email, uemail: uemail , name : name }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success == true) {
+                    alert(data.message);
+                    navigate('/');
+                } else {
+                    alert(data.message);
+                }
+            })
     }
 
     return (
@@ -98,7 +120,7 @@ export default function ParticularResCard() {
                                                     </Dialog.Title>
                                                     <div className='mt-2 flex flex-col'>
                                                         <img src='/images/paymentqr.jpg' className='h-[400px] mx-auto px-12 py-6' alt='/' />
-                                                        <button className='bg-green-500 text-white font-base px-4 py-2 rounded-xl ml-[20%] w-[60%] hover:bg-green-700' onClick={handleOnSubmit1} >Place Order</button>
+                                                        <button className='bg-green-500 text-white font-base px-4 py-2 rounded-xl ml-[20%] w-[60%] hover:bg-green-700' onClick={handleonSubmit1} >Place Order</button>
                                                     </div>
                                                 </Dialog.Panel>
                                             </Transition.Child>

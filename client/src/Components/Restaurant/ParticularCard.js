@@ -16,7 +16,7 @@ const ParticularCard = () => {
         setUserinfo({ ...Userinfo, [e.target.name]: e.target.value })
     }
 
-    const remail = localStorage.getItem('email');
+    const remail = localStorage.getItem('email'); 
     // console.log(name);
     // console.log(remail);
 
