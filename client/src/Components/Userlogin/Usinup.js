@@ -1,54 +1,50 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import Signup from './SignupR';
+import SigninU from './Ulogin';
 
-export default function Signin(props) {
+
+export default function Signup(props) {
     let [isOpen, setIsOpen] = useState(true)
-    let [SignUpOpen, setSignUpOpen] = useState(false)
-    const [Userinfo, setUserinfo] = useState({ email: "", password: "" });
-
-    function closeModal() {
-        setIsOpen(false)
-        props.close();
-    } 
-
-    function openSignUpModal() {
-        setSignUpOpen(true);
-        closeModal();
-    }
-
+    const [SigninUOpen, setSigninUOpen] = useState(false)
     const navigate = useNavigate();
+
+    const [Userinfo, setUserinfo] = useState({ name: "", email: "", password: "", phone: ""});
 
     const handleonSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/api/auth/res/loginRES", {
-            method: 'POST',
+        const response = await fetch("http://localhost:5000/api/auth/res/createRES", {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ email: Userinfo.email, password: Userinfo.password })
+            body: JSON.stringify({ name: Userinfo.name, email: Userinfo.email, password: Userinfo.password , phone: Userinfo.phone})
         });
 
         const json = await response.json();
- 
+
         if (!json.success) {
+            // console.log("Its a error");
             alert(json.message);
-        }
-        else {
-            // console.log("inside this");
-            localStorage.setItem('restroAuthToken', json.authToken);
-            localStorage.setItem('email' , Userinfo.email);
+        } else {
+            // console.log("Resister")
             alert(json.message);
+            setUserinfo({ name: "", email: "", password: "", phone: "", });
             closeModal();
-            navigate('/restro');
+            setSigninUOpen(true);
+            // navigate('/ngo', { replace: true });
         }
     };
 
     const onchange = (e) => {
         setUserinfo({ ...Userinfo, [e.target.name]: e.target.value })
-    }
+    };
 
+    function closeModal() {
+        setIsOpen(false)
+        setSigninUOpen(true);
+        props.closeSignUp();
+    }
 
     return (
         <>
@@ -80,19 +76,27 @@ export default function Signin(props) {
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-lg text-center font-medium leading-6 text-gray-900"
+                                        className="text-lg font-medium leading-6 text-gray-900"
                                     >
                                         <NavLink to={'/'}><img src="/images/logo.png" alt='logo' className='w-48 mx-auto' /></NavLink>
 
-                                        <h1 className='text-xl mt-8 font-bold'>Sing in With Restaurent Account </h1>
-
                                     </Dialog.Title>
                                     <div className="mt-2">
-                                        <div className="flex min-h-full flex-col justify-center px-2 py-4 lg:px-8">
+                                        <div className="flex min-h-full flex-col justify-center px-6 py-4 lg:px-8">
+                                            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
 
+                                                <h2 className="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign up User Account</h2>
+                                            </div>
 
-                                            <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-                                                <form className="space-y-6" action="#" method="POST" onSubmit={handleonSubmit} >
+                                            <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
+                                                <form className="space-y-6" action="#" method="POST" onSubmit={handleonSubmit}>
+                                                    <div>
+                                                        <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">User Name</label>
+                                                        <div className="mt-2">
+                                                            <input id="name" name="name" type="text" value={Userinfo.name} onChange={onchange} autoComplete="email" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                        </div>
+                                                    </div>
+
                                                     <div>
                                                         <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                                                         <div className="mt-2">
@@ -101,16 +105,23 @@ export default function Signin(props) {
                                                     </div>
 
                                                     <div>
-                                                        <div className="flex items-center justify-between">
+                                                        <label className="flex items-center justify-between">
                                                             <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Password</label>
-                                                            <div className="text-sm">
-                                                                <a href="/" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
-                                                            </div>
-                                                        </div>
+                                                        </label>
+
                                                         <div className="mt-2">
-                                                            <input id="password" name="password" type="password" value={Userinfo.password} onChange={onchange} autoComplete="current-password" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="password" name="password" type="password"
+                                                                value={Userinfo.password} onChange={onchange} autoComplete="current-password" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
+
+                                                    <div>
+                                                        <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900 mt-6">User Phone Number</label>
+                                                        <div className="mt-2">
+                                                            <input id="phone" name="phone" type="number" autoComplete="phone" required value={Userinfo.phone} onChange={onchange} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                        </div>
+                                                    </div>
+
 
                                                     <div>
                                                         <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
@@ -118,17 +129,10 @@ export default function Signin(props) {
                                                 </form>
 
                                                 <p className="mt-10 text-center text-sm text-gray-500">
-                                                    Not a member?
-                                                    <span onClick={() => {
-                                                        // closeModal();
-                                                        setSignUpOpen(true);
-                                                    }}
-                                                        className="cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign up</span>
+                                                    Already a member?
+                                                    <span onClick={closeModal} className="cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign in</span>
+                                                    {SigninUOpen ? <SigninU show={SigninUOpen} close={() => setSigninUOpen(false)} /> : <></>}
                                                 </p>
-                                                {SignUpOpen ? <Signup showSignUp={SignUpOpen} closeSignUp={() => {
-                                                    // closeModal()
-                                                    setSignUpOpen(false)
-                                                }} /> : <></>}
                                             </div>
                                         </div>
                                     </div>

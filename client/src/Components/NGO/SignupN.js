@@ -27,7 +27,7 @@ export default function Signup(props) {
             fileReader.onerror = (error) => {
                 console.log("Error in the filereader path");
                 reject(error);
-            };
+            }; 
         });
     };
 

@@ -84,7 +84,7 @@ export default function Signup(props) {
     };
 
     function closeModal() {
-        setIsOpen(false)
+        setIsOpen(false) 
         setSigninROpen(true);
         props.closeSignUp();
     }

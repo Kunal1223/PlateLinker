@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom'
-import Signup from './SignupR';
+import Signup from './Usinup';
 
 export default function Signin(props) {
     let [isOpen, setIsOpen] = useState(true)
@@ -11,7 +11,7 @@ export default function Signin(props) {
     function closeModal() {
         setIsOpen(false)
         props.close();
-    } 
+    }
 
     function openSignUpModal() {
         setSignUpOpen(true);
@@ -84,17 +84,17 @@ export default function Signin(props) {
                                     >
                                         <NavLink to={'/'}><img src="/images/logo.png" alt='logo' className='w-48 mx-auto' /></NavLink>
 
-                                        <h1 className='text-xl mt-8 font-bold'>Sing in With Restaurent Account </h1>
+                                        <h1 className='text-xl mt-8 font-bold'>Sing in With User Account </h1>
 
                                     </Dialog.Title>
                                     <div className="mt-2">
-                                        <div className="flex min-h-full flex-col justify-center px-2 py-4 lg:px-8">
+                                        <div className="flex min-h-full flex-col justify-center px-6 py-4 lg:px-8">
 
 
                                             <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
                                                 <form className="space-y-6" action="#" method="POST" onSubmit={handleonSubmit} >
                                                     <div>
-                                                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+                                                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">New Email address</label>
                                                         <div className="mt-2">
                                                             <input id="email" name="email" type="email" value={Userinfo.email} onChange={onchange} autoComplete="email" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>

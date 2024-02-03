@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import SigninN from './NGO/SigninN';
 import SigninR from './Restaurant/SigninR';
+import SigninU from './Userlogin/Ulogin';
 
 const Navbar = () => {
 
@@ -32,6 +33,7 @@ const Navbar = () => {
 
   const [SigninNOpen, setSigninNOpen] = useState(false)
   const [SigninROpen, setSigninROpen] = useState(false)
+  const [SigninUOpen , setSiginUOpen] = useState(false);
 
   return (
     <div className='h-20 bg-slate-100 w-full flex justify-between mx-auto items-center'>
@@ -54,7 +56,7 @@ const Navbar = () => {
               :
               <>
               </>
-              }
+            }
           </>
           :
           <>
@@ -62,7 +64,7 @@ const Navbar = () => {
             <button button onClick={removeToken} className="mr-14 text-red-500 font-bold text-lg hover:text-red-600">Log Out</button>
           </>
         }
-
+ 
 
         {(!localStorage.getItem('restroAuthToken')) ?
           <>
@@ -83,8 +85,13 @@ const Navbar = () => {
           </>
         }
 
+        <NavLink to={'/about'} className="mr-10 text-blue-500 font-bold text-lg hover:text-blue-600">About</NavLink>
 
-        <NavLink to={'/about'} className="mr-20 text-blue-500 font-bold text-lg hover:text-blue-600">About</NavLink>
+        <>
+          <button onClick={() => setSiginUOpen(true)} className="mr-14 text-blue-500 font-bold text-lg hover:text-blue-600" >User Login</button>
+          {SigninUOpen ? <SigninU show={SigninUOpen} close={() => setSiginUOpen(false)} /> : <></>}
+        </>
+
       </div>
     </div >
   )
