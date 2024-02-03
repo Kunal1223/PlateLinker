@@ -1,6 +1,5 @@
 import React, { useState, Fragment } from 'react'
 import { NavLink, useLocation } from 'react-router-dom';
-import PaymentQR from './PaymentQR';
 import { Dialog, Transition } from '@headlessui/react';
 
 

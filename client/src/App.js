@@ -12,7 +12,6 @@ import LoginError from './Components/Error404';
 import Packets from './Components/Restaurant/Packets';
 import ParticularCard from './Components/Restaurant/ParticularCard';
 import ParticularResCard from './Components/NGO/ParticularResCard';
-import PaymentQR from './Components/NGO/PaymentQR';
 
 
 function App() {
